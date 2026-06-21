@@ -6,7 +6,7 @@ using TShockAPI.Hooks;
 
 namespace LinkCommands;
 
-[ApiVersion(6, 1)]
+[ApiVersion(2, 1)]
 public class Plugin(Main game) : TerrariaPlugin(game)
 {
     public override string Name => "LinkCommands";

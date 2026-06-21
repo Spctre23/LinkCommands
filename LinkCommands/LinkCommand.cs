@@ -13,7 +13,7 @@ public class LinkCommand
 
     public void Execute(CommandArgs args)
     {
-        args.Player.SendMessage($"{Description}\n", DescriptionColor.R, DescriptionColor.G, DescriptionColor.B);
+        args.Player.SendMessage($"{Description}", DescriptionColor.R, DescriptionColor.G, DescriptionColor.B);
         args.Player.SendMessage($"{Link}", LinkColor.R, LinkColor.G, LinkColor.B);
     }
 }
