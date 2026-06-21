@@ -17,6 +17,7 @@ public class Plugin(Main game) : TerrariaPlugin(game)
     private readonly string _configPath = Path.Combine(TShock.SavePath, "LinkCommands.json");
 
     private readonly HashSet<Command> _commands = [];
+
     public override void Initialize()
     {
         TShock.Log.ConsoleInfo("======= LinkCommands Plugin Initialized =======");
