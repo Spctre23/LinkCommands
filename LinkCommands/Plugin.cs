@@ -14,9 +14,9 @@ public class Plugin(Main game) : TerrariaPlugin(game)
     public override string Author => "Spctre";
     public override string Description => "A simple plugin for creating custom commands that display web urls.";
 
-    private static readonly string configPath = Path.Combine(TShock.SavePath, "LinkCommands.json");
+    private readonly string _configPath = Path.Combine(TShock.SavePath, "LinkCommands.json");
 
-    private readonly HashSet<Command> commands = [];
+    private readonly HashSet<Command> _commands = [];
     public override void Initialize()
     {
         TShock.Log.ConsoleInfo("======= LinkCommands Plugin Initialized =======");
@@ -40,15 +40,15 @@ public class Plugin(Main game) : TerrariaPlugin(game)
     {
         List<LinkCommand>? commands = null;
 
-        if (File.Exists(configPath))
+        if (File.Exists(_configPath))
         {
-            commands = JsonConvert.DeserializeObject<List<LinkCommand>>(File.ReadAllText(configPath));
+            commands = JsonConvert.DeserializeObject<List<LinkCommand>>(File.ReadAllText(_configPath));
         }
 
         if (commands == null)
         {
             commands = [new()];
-            File.WriteAllText(configPath, JsonConvert.SerializeObject(commands, Formatting.Indented));
+            File.WriteAllText(_configPath, JsonConvert.SerializeObject(commands, Formatting.Indented));
         }
 
         return commands;
@@ -58,7 +58,7 @@ public class Plugin(Main game) : TerrariaPlugin(game)
     {
         TShock.Log.ConsoleInfo("======= LinkCommands Plugin Reloaded =======");
 
-        Commands.ChatCommands.RemoveAll(command => commands.Contains(command));
+        Commands.ChatCommands.RemoveAll(command => _commands.Contains(command));
 
         RegisterCommands();
     }
@@ -69,7 +69,7 @@ public class Plugin(Main game) : TerrariaPlugin(game)
         {
             Command command = new($"linkcommands.{linkCommand.Name}", linkCommand.Execute, linkCommand.Name);
 
-            commands.Add(command);
+            _commands.Add(command);
             Commands.ChatCommands.Add(command);
 
             TShock.Log.ConsoleInfo($"[LinkCommands] Registered link command: {linkCommand.Name}");
